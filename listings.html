@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head><title>Listings</title></head>
+<body>
+<h1>Listings (Drafts)</h1>
+<p><a href="/">Back</a></p>
+<table border="1" cellpadding="6">
+<thead><tr><th>Listing ID</th><th>Item ID</th><th>Platform</th><th>List Price</th><th>Created</th></tr></thead>
+<tbody>
+{% for l in listings %}
+<tr>
+ <td>{{l.id}}</td>
+ <td>{{l.item_id}}</td>
+ <td>{{l.platform}}</td>
+ <td>${{ '%.2f'|format(l.list_price) }}</td>
+ <td>{{l.created_at}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</body>
+</html>

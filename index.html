@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head><title>Arbitrage Prototype</title></head>
+<body>
+<h1>Arbitrage Candidates</h1>
+<p>
+  <a href="/fetch">Fetch simulated marketplace items</a> |
+  <a href="/fetch_fb">Fetch simulated Facebook Marketplace items (stub)</a> |
+  <a href="/listings">View listings</a>
+</p>
+<table border="1" cellpadding="6" cellspacing="0">
+<thead><tr><th>Title</th><th>Buy</th><th>Shipping</th><th>Fees</th><th>Expected Resell</th><th>Profit</th><th>ROI%</th><th>Inspected</th><th>Approved</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody>
+{% for it in items %}
+<tr>
+  <td>{{ it.title }} <br><small>from {{ it.source }}</small></td>
+  <td>${{ '%.2f'|format(it.buy_price) }}</td>
+  <td>${{ '%.2f'|format(it.shipping) }}</td>
+  <td>${{ '%.2f'|format(it.fees) }}</td>
+  <td>${{ '%.2f'|format(it.expected_resell) }}</td>
+  <td>${{ '%.2f'|format(it.profit) }}</td>
+  <td>{{ it.roi if it.roi is not none else '—' }}</td>
+  <td>{{ 'yes' if it.inspected else 'no' }}</td>
+  <td>{{ 'yes' if it.approved else 'no' }}</td>
+  <td>{{ it.status }}</td>
+  <td>
+    <form style="display:inline" method="post" action="/inspect/{{ it.id }}"><button type="submit">Mark Inspected</button></form>
+    <form style="display:inline" method="post" action="/approve/{{ it.id }}"><button type="submit">Approve (sandbox)</button></form>
+    <form style="display:inline" method="post" action="/list_fb/{{ it.id }}"><button type="submit">Create FB Listing (stub)</button></form>
+  </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</body>
+</html>
